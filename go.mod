@@ -5,8 +5,8 @@ go 1.21.5
 require (
 	github.com/celer-network/goutils v0.2.0
 	github.com/consensys/gnark v0.10.0
-	github.com/consensys/gnark-crypto v0.13.0
-	github.com/ethereum/go-ethereum v1.14.8
+	github.com/consensys/gnark-crypto v0.12.2-0.20240215234832-d72fcb379d3e
+	github.com/ethereum/go-ethereum v1.13.15
 	github.com/iden3/go-iden3-crypto v0.0.15
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/crypto v0.26.0
@@ -33,3 +33,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
+
+replace github.com/consensys/gnark => github.com/celer-network/gnark v0.0.0-20240204054508-d08e3ed6bd9f
