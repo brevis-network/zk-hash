@@ -11,7 +11,7 @@ func TestPoseidon2Goldilock(t *testing.T) {
 	for i := 0; i < 10; i++ {
 		go testPoseidon2Parall()
 	}
-	time.Sleep(10 * time.Second)
+	time.Sleep(2 * time.Second)
 }
 
 func testPoseidon2Parall() {
