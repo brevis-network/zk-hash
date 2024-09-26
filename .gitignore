@@ -25,3 +25,8 @@ go.work.sum
 .env
 
 .DS_Store
+
+.idea
+
+poseidon2_goldilock/p3_poseidon2_golidlock_lib/target
+poseidon2_goldilock/p3_poseidon2_golidlock_lib/Cargo.lock
