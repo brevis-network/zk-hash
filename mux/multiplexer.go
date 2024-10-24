@@ -2,6 +2,7 @@ package mux
 
 import (
 	"fmt"
+
 	"github.com/consensys/gnark/frontend"
 )
 
@@ -23,6 +24,8 @@ func Multiplex(
 
 // decodes the input selector num into a bit mask
 // e.g. width 8 select 3 -> 00010000
+// The return value outputSuccess indicates whether any output was selected, and
+// callers should constrain outputSuccess to be 1 to ensure at least one output is active.
 func decode(api frontend.API, width int, input frontend.Variable) (output []frontend.Variable, outputSuccess frontend.Variable) {
 	outputSuccess = 0
 	for i := 0; i < width; i++ {
@@ -37,6 +40,9 @@ func decode(api frontend.API, width int, input frontend.Variable) (output []fron
 func dotProduct(api frontend.API, width int, inputA []frontend.Variable, inputB []frontend.Variable) (output frontend.Variable) {
 	if len(inputA) != len(inputB) {
 		panic(fmt.Errorf("len(inputA) %d != len(inputB) %d", len(inputA), len(inputB)))
+	}
+	if width > len(inputA) {
+		panic(fmt.Errorf("width %d exceeds the length of inputA %d or inputB %d", width, len(inputA), len(inputB)))
 	}
 	output = 0
 	for i := 0; i < width; i++ {
