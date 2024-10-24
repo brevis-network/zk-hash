@@ -75,7 +75,7 @@ func Pad101Bits(
 		}
 
 		actualLen := j
-		rounds := (actualLen+8)/1088 + 1
+		rounds := (actualLen + 2 + 1087) / 1088
 
 		// insert the padding part
 		for ; j < actualLen+7; j++ {
