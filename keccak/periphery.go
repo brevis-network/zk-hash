@@ -1,10 +1,16 @@
 package keccak
 
 import (
+	"fmt"
+
 	"github.com/consensys/gnark/frontend"
 )
 
 func Uint64s2Blocks(padded []uint64) [MAX_ROUNDS][17]frontend.Variable {
+	if len(padded) > 17*MAX_ROUNDS {
+		panic(fmt.Errorf("length of padded (%d) exceeds maximum allowed size (%d)", len(padded), 17*MAX_ROUNDS))
+	}
+
 	ret := [MAX_ROUNDS][17]frontend.Variable{}
 	for i, el := range padded {
 		ret[i/17][i%17] = el
