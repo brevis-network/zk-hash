@@ -1,6 +1,8 @@
 package keccak
 
 import (
+	"fmt"
+
 	"github.com/brevis-network/zk-hash/keccak/keccakf"
 	"github.com/brevis-network/zk-hash/mux"
 	"github.com/consensys/gnark/frontend"
@@ -29,8 +31,17 @@ func Keccak256(api frontend.API, blocks [MAX_ROUNDS][17]frontend.Variable, round
 
 func transpose(input [][]frontend.Variable) [][]frontend.Variable {
 	rows := len(input)
+	if rows == 0 {
+		return nil
+	}
 	cols := len(input[0])
 	output := make([][]frontend.Variable, cols)
+
+	for i := 1; i < rows; i++ {
+		if len(input[i]) != cols {
+			panic(fmt.Errorf("input row %d has length %d, expected %d", i, len(input[i]), cols))
+		}
+	}
 
 	for i := 0; i < cols; i++ {
 		output[i] = make([]frontend.Variable, rows)
