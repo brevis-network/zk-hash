@@ -27,6 +27,9 @@ func PackBitsToFr(api frontend.API, bits []frontend.Variable) []frontend.Variabl
 
 // FlipByGroups flips the order of the groups of groupSize. e.g. [1,2,3,4,5,6] with groupSize 2 is flipped to [5,6,3,4,1,2]
 func FlipByGroups[T any](in []T, groupSize int) []T {
+	if len(in)%groupSize != 0 {
+		panic("invalid length")
+	}
 	res := make([]T, len(in))
 	copy(res, in)
 	for i := 0; i < len(res)/groupSize/2; i++ {

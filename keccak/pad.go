@@ -45,7 +45,7 @@ func Pad101Bits(
 		log.Fatalf("Invald input length for pad101. Input max length: %d, Input length: %d", inLenMax, len(in))
 	}
 
-	outBitsLen := ((inLenMax*inBits+8)/1088 + 1) * 1088
+	outBitsLen := ((inLenMax*inBits + 2 + 1087) / 1088) * 1088
 	fmt.Println("pad: output bits length", outBitsLen)
 
 	checkLen("in", len(in), inBits)
@@ -75,7 +75,7 @@ func Pad101Bits(
 		}
 
 		actualLen := j
-		rounds := (actualLen+8)/1088 + 1
+		rounds := (actualLen + 2 + 1087) / 1088
 
 		// insert the padding part
 		for ; j < actualLen+7; j++ {

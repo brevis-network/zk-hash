@@ -5,14 +5,10 @@ import (
 )
 
 func Flip[T any](in []T) []T {
-	res := make([]T, len(in))
-	copy(res, in)
 	for i := 0; i < len(in)/2; i++ {
-		tmp := res[i]
-		res[i] = res[len(res)-1-i]
-		res[len(res)-1-i] = tmp
+		in[i], in[len(in)-1-i] = in[len(in)-1-i], in[i]
 	}
-	return res
+	return in
 }
 
 func FlipSubSlice[T any](arr []T, chunkSize int) []T {
