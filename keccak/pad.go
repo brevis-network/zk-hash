@@ -83,11 +83,15 @@ func Pad101Bits(
 		}
 		padded[i][j] = 1
 		j++
-		for ; j < rounds*1088-8; j++ {
-			padded[i][j] = 0
+		if j%1088 != 0 {
+			for ; j < rounds*1088-8; j++ {
+				padded[i][j] = 0
+			}
+			padded[i][j] = 1
+			j++
+		} else {
+			padded[i][actualLen] = 1
 		}
-		padded[i][j] = 1
-		j++
 
 		// populate the rest with dummy zeros
 		for ; j < outBitsLen; j++ {

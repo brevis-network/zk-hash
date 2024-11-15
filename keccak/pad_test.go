@@ -16,17 +16,17 @@ import (
 
 func TestPad101Bits(t *testing.T) {
 	chunk := hexutil.MustDecode("0x1234")
-	inLenNibs := 1200
+	inLenNibs := 270
 	var data []byte
-	for i := 0; i < 300; i++ {
+	for i := 0; i < inLenNibs/4; i++ {
 		data = append(data, chunk...)
+	}
+	for i := len(data); i < inLenNibs/2; i++ {
+		data = append(data, byte(0))
 	}
 	var nibs []frontend.Variable
 	for _, b := range data {
 		nibs = append(nibs, b>>4, b&15)
-	}
-	for i := len(nibs); i < inLenNibs; i++ {
-		nibs = append(nibs, 0)
 	}
 
 	padded := utils.Slice2FVs(Bytes2BlockBits(Pad101Bytes(data)))

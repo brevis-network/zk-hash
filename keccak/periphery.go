@@ -42,10 +42,6 @@ func GetKeccakRoundForPaddedBytes(data []byte) int {
 	return len(data)/136 - 1
 }
 
-// func GetRoundIndex(bitsLen int) int {
-// 	return (bitsLen + 8) / 1088
-// }
-
 func Bytes2BlockBits(bytes []byte) (bits []uint8) {
 	if len(bytes)%136 != 0 {
 		panic("invalid length")
@@ -250,13 +246,14 @@ func PadBits101(api frontend.API, data []frontend.Variable, maxRound int) []fron
 	var padBits []frontend.Variable
 	padBits = append(padBits, data...)
 	var missedLen = 1088 - len(data)%1088
-	var zeroBitLen = missedLen - 8*2
+	var zeroBitLen = (1088 + missedLen - 2) % 1088
 
-	padBits = append(padBits, api.ToBinary(1, 8)...) // 1000, 0000
+	padBits = append(padBits, 1) // Single bit 1
+
 	for i := 0; i < zeroBitLen; i++ {
 		padBits = append(padBits, 0) //00...0000
 	}
-	padBits = append(padBits, api.ToBinary(128, 8)...) // 0000 0001
+	padBits = append(padBits, 1) // Single bit 1
 
 	padZeroLen := maxRound*1088 - len(padBits)
 
